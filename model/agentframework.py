@@ -51,7 +51,7 @@ class Agent:
     assert x is None or ( x >= 0 and y < self.env_width ), """
       x-coordinate of an agent falls outside of the environment bounds
       """
-    assert y is None or ( y >= 0 and y < self.env_width ), """
+    assert y is None or ( y >= 0 and y < self.env_height ), """
       y-coordinate of an agent falls outside of the environment bounds
       """
 

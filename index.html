@@ -1,0 +1,220 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Environment Model Demo</title>
+  <meta name="description" content="Demo page for Leeds Python GIS Practical">
+  <meta name="author" content="Ilya Ilyankou">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+
+</head>
+
+<body>
+
+  <article class="mw8 center helvetica pa3 f4">
+
+    <h1 class="f1">
+      Environment Model in Python
+    </h1>
+
+    <p>
+      This is a practice model that creates agents that can interact with an environment.
+      Put simply, we let X agents onto the field and see them eat stuff.
+      The program can run with GUI, showing the progress of the agents in
+      an animation using <code>matplotlib</code> library, or output the resulting environment into a file.
+    </p>
+
+    <p>
+      View code and instructions on
+      <a href="https://github.com/ilyankou/leeds-gis-python-practicals" class="link dim blue">GitHub</a>.
+    </p>
+
+    <h2 class="f2">What is the environment?</h2>
+
+    <p>
+      The environment is the "world" for our agent-based model.
+      It is defined as a CSV-formatted file with
+      integers corresponding to cell values of the environment.
+      Depending on the problem, the values can be elevation, resources available, temperature, etc.
+    </p>
+      
+      In this implementation, the environment is read from the <code>in.txt</code> file.
+      To change the environment, simply edit in.txt in any text editor. Make sure it is a proper rectangle (that is,
+      the same number of values in each row), with no missing values.
+    </p>
+
+    <h4 class="f4 mb2">Example of a 5&times;5 environment (<code>in.txt</code>)</h4>
+    <p class="mt0">
+      Here, the minimum value is 1 at (y=1, x=4), and the maximum value is 785 at (y=3, x=2).
+    </p>
+    <p class="code pa3 bg-near-white">
+      200,2,201,100,3<br>
+      200,15,201,100,1<br>
+      200,12,201,100,44<br>
+      15,220,785,41,16<br>
+      7,220,451,100,41 
+    </p>
+
+    <h2 class="f2">Who are the agents?</h2>
+    <p>
+      The agents are individual entities that interact with the environment.
+      In this implementation, you can define both the number of agents and,
+      if desired, their initial locations within the environment.
+    </p>
+
+    <p>
+      Currently, the model parses the x and y coordinates of agents
+      <a href="http://www.geog.leeds.ac.uk/courses/computing/practicals/python/agent-framework/part9/data.html" class="link blue">
+        from this HTML page</a>
+      using <code>BeautifulSoup</code> Python library.
+
+      <ul>
+        <li>The model uses the first <code>N</code> (y, x) pairs of coordinates from the HTML page.
+          The model checks to make sure the coordinates fall within the environment dimensions (if not, the program
+          outputs an error and terminates).
+        </li>
+        <li>In case the number of agents (<code>num_of_agents</code>) is larger than there are
+        coordinates defined in the HTML page, the model will assign random (y, x) coordinates to the remaining agents.</li>
+      </ul>
+    </p>
+    
+    <h2 class="f2">How do I run the model?</h2>
+    <p>There are <b>three ways</b> you can run this model: with animation, without animation, and batch runs.</p>
+
+    <h3 class="f3">Running with GUI</h3>
+
+    <p>
+      The simplest way to start the program in GUI is to run the following in the terminal:
+    </p>
+
+    <p class="code bg-washed-green pa3">
+      python model num_of_agents num_of_iterations neighbourhood
+    </p>
+
+    <p>
+      where <code>num_of_agents</code> is the number of agents,
+      <code>num_of_iterations</code> is the number of iterations (steps each agent takes),
+      and <code>neighbourhood</code> is the distance of the neighbourhood
+      (agents are social creatures and like sharing their food
+      with neighbours who are at most neighbourhood units far).
+    </p>
+
+    <p>
+      So to run a model with 5 agents and 10 iterations, with the
+      neighbourhood size of 2, run <code class="bg-near-white">python model 5 10 2</code>.
+
+    <p>
+      This command will open up a window. In the menu, go to <b>Model &rarr; Run model</b>
+      to start the animation. You can repeat the interaction as many times as you wish
+      to see the environment change further.
+    </p>
+
+
+    <h3 class="f3">Running in "quiet" mode</h3>
+
+    <p>
+      If you add nodisplay as the fourth parameter to the command, like this:
+    </p>
+
+    <p class="code bg-washed-yellow pa3">
+      python model 5 10 2 nodisplay
+    </p>
+
+    <p>
+      the program won't show the GUI. Instead, it will write the output in two files.
+    </p>
+
+    <ol>
+      <li> <code class="bg-near-white">output/5-10-2.txt</code>, which has a similar structure to the in.txt file,
+        represents the state of the environment at the end of the run.
+        5, 10 and 2 values are the model's parameters as described above.</li>
+      <li>
+        <code class="bg-near-white">output/stored.txt</code> get a record of the total amount of food
+        stored by all agents. The file doesn't get overwritten, but
+        instead a new line with a single number gets appended to the end.
+      </li>
+    </ol>
+
+    <h3 class="f3">Performing multiple runs with various parameters</h3>
+
+    <p>
+      More experienced users might want to run the model with multiple
+      parameters to compare resulting environments. They can manually
+      change the <code class="bg-near-white">model/run_model.py</code> file to set the range of values for the
+      number of agents, number of iterations, and the neighbourhood distance.
+      To run, simply execute <code>`python model/run_model.py`</code> in the console.
+    </p>
+
+    <p>
+      <code>model/run_model.py</code> makes use of the subprocess library of Python to run
+      the model with various parameters. The output environments are
+      recorded in the output folder under file names consistent to
+      the model's parameters (eg <code class="bg-near-white">5-10-2.txt</code>).
+    </p>
+
+    <h2 class="f2">Model Results</h2>
+    <p>
+      The following images demonstrate the result of the GUI animation of the model 
+      run with different parameters.
+    </p>
+
+    <div class="w-100 w-50-l fl">
+      <ul class="list">
+        <li>Agents: 5</li>
+        <li>Iterations: 5</li>
+        <li>Neighbourhood: 5</li>
+      </ul>
+
+      <img src="images/5-5-5.png" alt="5-5-5 Model">
+    </div>
+
+    <div class="w-100 w-50-l fl">
+      <ul class="list">
+        <li>Agents: 5</li>
+        <li>Iterations: 50</li>
+        <li>Neighbourhood: 5</li>
+      </ul>
+
+      <img src="images/5-50-5.png" alt="5-50-5 Model">
+    </div>
+
+    <div class="w-100 w-50-l fl">
+      <ul class="list">
+        <li>Agents: 5</li>
+        <li>Iterations: 50</li>
+        <li>Neighbourhood: 50</li>
+      </ul>
+
+      <img src="images/5-50-50.png" alt="5-50-50 Model">
+    </div>
+
+    <div class="w-100 w-50-l fl">
+      <ul class="list">
+        <li>Agents: 50</li>
+        <li>Iterations: 50</li>
+        <li>Neighbourhood: 50</li>
+      </ul>
+
+      <img src="images/50-50-50.png" alt="50-50-50 Model">
+    </div>
+
+    <section class="ph4 bg-near-white fl mt4">
+      <h2 class="f2">About</h2>
+
+      <p>
+        Pretty much all the code is based on practicals from <i>Programming
+        for Geographical Information Analysis</i> course at the University of
+        Leeds. It is distributed here under the MIT license.
+      </p>
+    </section>
+
+  </article>
+  
+
+
+</body>
+</html>

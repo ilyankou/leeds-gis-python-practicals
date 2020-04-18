@@ -15,50 +15,51 @@ with no missing values.
 ### Running with GUI
 The simplest way to start the program in GUI is to run the following in the terminal:
 ```
-python model.py num_of_agents num_of_iterations neighbourhood
+python model num_of_agents num_of_iterations neighbourhood
 ```
 where `num_of_agents` is the number of agents, `num_of_iterations` is the
 number of iterations (steps each agent takes), and `neighbourhood`
 is the distance of the neighbourhood (agents are social creatures and like sharing their food with neighbours
-who are at at most `neighbourhood` units far).
+who are at most `neighbourhood` units far).
 
 So to run a model with 5 agents and 10 iterations, with the neighbourhood size of 2,
-run `python model.py 5 10 2`.
+run `python model 5 10 2`.
 
 This command will open up a window. In the menu, go to `Model --> Run model` to start
 the animation. You can repeat the interaction as many times as you wish to see the
-environment deteriorate further.
+environment change further.
 
 
 ### Running in "quiet" mode
 If you add `nodisplay` as the fourth parameter to the command, like this:
 ```
-python model.py 5 10 2 nodisplay
+python model 5 10 2 nodisplay
 ```
 the program won't show the GUI. Instead, it will write the output in two files.
 
 1. `output/5-10-2.txt`, which has a similar structure to the `in.txt` file, represents
 the state of the environment **at the end** of the run. `5`, `10` and `2` values
-are model's parameters as described above.
-1. `output/stored.txt` get a record of the total amount of food stored by all agents.
+are the model's parameters as described above.
+1. `output/stored.txt` gets a record of the total amount of food stored by all agents.
 The file doesn't get overwritten, but instead a new line with a single number gets appended to the end.
 
 
 ### Performing multiple runs with various parameters
 More experienced users might want to run the model with multiple parameters to compare
-resulting environments. They can manually change the `run_model.py` file to set the range
+resulting environments. They can manually change the `model/run_model.py` file to set the range
 of values for the number of agents, number of iterations, and the neighbourhood distance.
 
-`run_model.py` makes use of the `subprocess` library of Python to run `model.py` with
+`model/run_model.py` makes use of the `subprocess` library of Python to run the `model` with
 various parameters. The output environments are recorded in the `output` folder under
-file names consistent to the model's parameters (eg `5-10-2.txt`).
+file names consistent to the model's parameters (eg `5-10-2.txt`). To execute, simply
+run `python model/run_model.py` in the terminal.
 
 ## Result
 
 The following images show the result of four GUI runs with different parameters.
 Each screenshot is annotated with relevant parameters.
 
-![Combined Output](output/output-combined.png)
+![Combined Output](images/output-combined.png)
 
 ## Credits
 
