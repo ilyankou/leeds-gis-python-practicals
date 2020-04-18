@@ -9,21 +9,22 @@ using `matplotlib` library, or output the resulting environment into a file.
 ```
 . 
 |___model
-|      agentframework.py
-|      run_model.py
-|      __main__.py
+|   |-- agentframework.py
+|   |-- run_model.py
+|   |-- __main__.py
 |
-|___output
-|      stored.txt
-|      /* All result environments go here as .txt files */
+|-- output
+|   |-- stored.txt
+|   |_ (All result environments go here as .txt files)
 |
-|___images
-|      /* Screenshots and webpage images are stored here */
+|-- images
+|   |_ (Screenshots and webpage images are stored here)
 |   
-|   README.md
-│   LICENSE
-|   index.html
-|   in.txt
+|-- index.html
+|-- in.txt
+|
+│-- LICENSE
+|-- README.md
 ```
 
 ## Quick Start
