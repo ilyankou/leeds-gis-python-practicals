@@ -5,6 +5,27 @@ an environment. Put simply, we let X agents onto the field and see them eat stuf
 The program can run with GUI, showing the progress of the agents in an animation
 using `matplotlib` library, or output the resulting environment into a file.
 
+## Project Structure
+```
+. 
+|___model
+|      agentframework.py
+|      run_model.py
+|      __main__.py
+|
+|___output
+|      stored.txt
+|      /* All result environments go here as .txt files */
+|
+|___images
+|      /* Screenshots and webpage images are stored here */
+|   
+|   README.md
+│   LICENSE
+|   index.html
+|   in.txt
+```
+
 ## Quick Start
 
 The environment is defined inside the `in.txt` file. It is a CSV-formatted file
