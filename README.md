@@ -82,7 +82,7 @@ various parameters. The output environments are recorded in the `output` folder 
 file names consistent to the model's parameters (eg `5-10-2.txt`). To execute, simply
 run `python model/run_model.py` in the terminal.
 
-## GUI Example Result
+## Example Output (running with GUI)
 
 The following images show the result of four GUI runs with different parameters.
 Each screenshot is annotated with relevant parameters.
