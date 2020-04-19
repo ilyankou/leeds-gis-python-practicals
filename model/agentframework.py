@@ -77,7 +77,7 @@ class Agent:
 
   def __str__(self):
     """ Nicely formatted output when agent is converted to string """
-    return "Agent's location is ({}, {}). Currently stores {}.".format(
+    return "Agent's location is ({}, {}). Currently stores {} units.".format(
       self.y,
       self.x,
       self.store

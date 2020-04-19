@@ -1,11 +1,17 @@
-# Environment Model
+# Agent-Based Modelling with GUI in Python
 
-This is a practice model that creates agents that can interact with
+This is a practice model that creates agents who can interact with
 an environment. Put simply, we let X agents onto the field and see them eat stuff.
 The program can run with GUI, showing the progress of the agents in an animation
-using `matplotlib` library, or output the resulting environment into a file.
+using `matplotlib` library, or run in the "quiet" mode,
+writing the resulting environment into a file.
 
 ## Project Structure
+
+The Python model is located in the `/model` folder. All output produced goes to `/output` folder.
+The screenshots of the model results which are used for the website and this README document
+are located in `/images` folder. The webpage is a one-page HTML document `index.html` in the root directory.
+
 ```
 . 
 |___model
@@ -76,12 +82,49 @@ various parameters. The output environments are recorded in the `output` folder 
 file names consistent to the model's parameters (eg `5-10-2.txt`). To execute, simply
 run `python model/run_model.py` in the terminal.
 
-## Result
+## GUI Example Result
 
 The following images show the result of four GUI runs with different parameters.
 Each screenshot is annotated with relevant parameters.
 
 ![Combined Output](images/output-combined.png)
+
+## About the Agent class
+The agent class can be found in `model/agentframework.py`. Apart from the standard
+getters and setters for x and y coordinates, it can
+
+* `move()` 1 step in a random direction (but it always checks to make sure it stays within the boundaries of the environment);
+* `eat()` 10 units from the environment (if fewer units are stored in a cell, the agent eats it all; if agent
+stores over 100 units, it throws up, or in other words returns all its stored units back to the environment);
+* `share_with_neighbours()` its resources. The neighbours are those agents located within `neighbourhood`
+units from the agent, and the food is being shared equally between the agent and each neighbour, one at a time.
+The agent makes use of the `distance_between( agent )` internal function to calculate Pythagorean distance
+to determine its neighbours.
+
+When the agent is converted to a string (or printed), it reports is current position (x and y coordinates),
+and how many units are stored in the agent. For example,
+
+```
+print( agents[0] )
+>>> Agent's location is (5, 83). Currently stores 7 units.
+```
+
+## Dependencies
+The model relies on the following Python libraries:
+```
+random
+operator
+csv
+sys
+
+tkinter
+requests
+bs4
+
+matplotlib
+matplotlib.pyplot
+matplotlib.animation
+```
 
 ## Credits
 

@@ -18,11 +18,11 @@
   <article class="mw8 center helvetica pa3 f4">
 
     <h1 class="f1">
-      Environment Model in Python
+      Agent-Based Modelling in Python
     </h1>
 
-    <p>
-      This is a practice model that creates agents that can interact with an environment.
+    <p class="w-100 w-50-l fl">
+      This is a practice model that creates agents who can interact with an environment.
       Put simply, we let X agents onto the field and see them eat stuff.
       The program can run with GUI, showing the progress of the agents in
       an animation using <code>matplotlib</code> library, or output the resulting environment into a file.
@@ -33,13 +33,14 @@
       <a href="https://github.com/ilyankou/leeds-gis-python-practicals" class="link dim blue">GitHub</a>.
     </p>
 
-    <h2 class="f2">What is the environment?</h2>
+    <h2 class="f2">What is the environment? 🗺</h2>
 
     <p>
       The environment is the "world" for our agent-based model.
       It is defined as a CSV-formatted file with
       integers corresponding to cell values of the environment.
-      Depending on the problem, the values can be elevation, resources available, temperature, etc.
+      Depending on the problem, the values can be elevation, amount of available resource,
+      temperature, etc.
     </p>
       
     <p>
@@ -49,7 +50,7 @@
       the same number of values in each row), with no missing values.
     </p>
 
-    <h4 class="f4 mb2">Example of a 5&times;5 environment (<code>in.txt</code>)</h4>
+    <h4 class="f4 mb2">Example of a 5&times;5 environment</h4>
     <p class="mt0">
       Here, the minimum value is 1 at (y=1, x=4), and the maximum value is 785 at (y=3, x=2).
     </p>
@@ -61,7 +62,7 @@
       7,220,451,100,41 
     </p>
 
-    <h2 class="f2">Who are the agents?</h2>
+    <h2 class="f2">Who are the agents? 🤖</h2>
     <p>
       The agents are individual entities that interact with the environment.
       In this implementation, you can define both the number of agents and,
@@ -71,17 +72,30 @@
     <p>
       Currently, the model parses the x and y coordinates of agents
       <a href="http://www.geog.leeds.ac.uk/courses/computing/practicals/python/agent-framework/part9/data.html" class="link blue">
-        from this HTML page</a> using <code>BeautifulSoup</code> Python library.
+        from this HTML page</a> using Python's <code>BeautifulSoup</code> library.
     </p>
 
     <ul>
-      <li>The model uses the first <code>N</code> (y, x) pairs of coordinates from the HTML page.
+      <li>
+        The model uses the first <code>N</code> (y, x) pairs of coordinates from the HTML page.
         The model checks to make sure the coordinates fall within the environment dimensions (if not, the program
         outputs an error and terminates).
       </li>
-      <li>In case the number of agents (<code>num_of_agents</code>) is larger than there are
-      coordinates defined in the HTML page, the model <a href="https://github.com/ilyankou/leeds-gis-python-practicals/blob/master/model/agentframework.py#L58-L59" class="link blue">will assign random (y, x) coordinates</a> to the remaining agents.</li>
+      <li>
+        In case the number of agents (<code>num_of_agents</code>) is larger than there are
+        coordinates defined in the HTML page, the model
+        <a href="https://github.com/ilyankou/leeds-gis-python-practicals/blob/master/model/agentframework.py#L58-L59" class="link blue">
+          will assign random (y, x) coordinates</a> to the remaining agents. The model makes sure
+          the coordinates fall within the boundaries of the rectangular environment.
+        </li>
+
     </ul>
+
+    <p>
+      The coordinates can be manually changed after initialization using <code>set_x()</code> and <code>set_y()</code>
+      setters of <code>Agent</code> class (from model/<i>agentframework.py</i>). When new x/y coordinates are set,
+      the model makes sure they fall within the boundaries of the environment.
+    </p>
     
     <h2 class="f2">How do I run the model?</h2>
     <p>There are <b>three ways</b> you can run this model: with animation, without animation, and batch runs.</p>
@@ -92,7 +106,7 @@
       The simplest way to start the program in GUI is to run the following in the terminal:
     </p>
 
-    <p class="code bg-washed-green pa3">
+    <p class="code bg-lightest-blue pa3">
       python model num_of_agents num_of_iterations neighbourhood
     </p>
 
@@ -145,13 +159,17 @@
       parameters to compare resulting environments. They can manually
       change the <code class="bg-near-white">model/run_model.py</code> file to set the range of values for the
       number of agents, number of iterations, and the neighbourhood distance.
-      To run, simply execute <code>`python model/run_model.py`</code> in the console.
+      To run, simply execute the following in the console:
+    </p>
+
+    <p class="pa3 code bg-washed-green">
+      python model/run_model.py
     </p>
 
     <p>
-      <code>model/run_model.py</code> makes use of the subprocess library of Python to run
+      This script makes use of the <code>subprocess</code> library of Python to run
       the model with various parameters. The output environments are
-      recorded in the output folder under file names consistent to
+      recorded in the <b>output</b> folder under file names consistent to
       the model's parameters (eg <code class="bg-near-white">5-10-2.txt</code>).
     </p>
 
